@@ -26,7 +26,6 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-	  <!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 		<key>NSAllowsLocalNetworking</key>
@@ -48,5 +47,18 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-</dict>
+  <key>GADApplicationIdentifier</key>
+  <string>ca-app-pub-6066778698509308~5060910515</string>
+  <key>GIDClientID</key>
+  <string>1049024038006-3q9iauqugoqdg9rhsf2lhlgq4khh5qmo.apps.googleusercontent.com</string>
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>com.googleusercontent.apps.1049024038006-3q9iauqugoqdg9rhsf2lhlgq4khh5qmo</string>
+      </array>
+    </dict>
+  </array>
+  </dict>
 </plist>

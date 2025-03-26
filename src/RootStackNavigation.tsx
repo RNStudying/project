@@ -3,18 +3,19 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 import React from 'react';
-// import {AddFeedScreen} from '../screens/AddFeedScreen';
-// import {FeedListScreen} from '../screens/FeedListScreen';
+
+import {AddFeedScreen} from './screens/AddFeedScreen';
+import {FeedListScreen} from './screens/FeedListScreen';
 // import {BottomTabNavigation} from './BottomTabNavigation';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 // import {FeedInfo} from '../@types/FeedInfo';
 
 export type RootStackParamList = {
-  //   BottomTab: undefined;
-  //   FeedList: {
-  //     list: FeedInfo[];
-  //   };
-  //   AddFeed: undefined;
+  BottomTab: undefined;
+  FeedList: {
+    list: any[];
+  };
+  AddFeed: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -26,9 +27,8 @@ export const RootStackNavigation: React.FC = () => {
         headerShown: false,
         presentation: 'containedModal',
       }}>
-      {/* <Stack.Screen name="BottomTab" component={BottomTabNavigation} />
       <Stack.Screen name="AddFeed" component={AddFeedScreen} />
-      <Stack.Screen name="FeedList" component={FeedListScreen} /> */}
+      <Stack.Screen name="FeedList" component={FeedListScreen} />
     </Stack.Navigator>
   );
 };

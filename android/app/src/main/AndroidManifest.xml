@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
+ 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
@@ -10,6 +12,12 @@
       android:allowBackup="false"
       android:theme="@style/AppTheme"
       android:supportsRtl="true">
+        <meta-data
+            android:name="com.google.android.gms.ads.com.allmyfavorite"
+            android:value="ca-app-pub-6066778698509308~9706069823"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
