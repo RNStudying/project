@@ -5,7 +5,7 @@ import {
 import React from 'react';
 
 import {AddFeedScreen} from './screens/AddFeedScreen';
-import {FeedListScreen} from './screens/FeedListScreen';
+// import {FeedListScreen} from './screens/FeedListScreen';
 // import {BottomTabNavigation} from './BottomTabNavigation';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 // import {FeedInfo} from '../@types/FeedInfo';
@@ -28,7 +28,7 @@ export const RootStackNavigation: React.FC = () => {
         presentation: 'containedModal',
       }}>
       <Stack.Screen name="AddFeed" component={AddFeedScreen} />
-      <Stack.Screen name="FeedList" component={FeedListScreen} />
+      {/* <Stack.Screen name="FeedList" component={FeedListScreen} /> */}
     </Stack.Navigator>
   );
 };

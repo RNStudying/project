@@ -16,10 +16,11 @@ const googleSigninConfigure = () => {
       '1049024038006-ckd6sr8i1ntdr7ct16avr9l8id4fnlsi.apps.googleusercontent.com',
   });
 };
-const unitID =
-  Platform.OS === 'android'
-    ? 'ca-app-pub-6066778698509308/6434174698'
-    : 'ca-app-pub-6066778698509308/8689367590';
+const unitID = 'ca-app-pub-3940256099942544/9214589741';
+// const unitID =
+//   Platform.OS === 'android'
+//     ? 'ca-app-pub-6066778698509308/6434174698'
+//     : 'ca-app-pub-6066778698509308/8689367590';
 
 mobileAds()
   .initialize()
@@ -34,7 +35,6 @@ function App(): React.JSX.Element {
   useEffect(() => {
     googleSigninConfigure();
   }, []);
-
   const {width} = useWindowDimensions();
   return (
     <SafeAreaProvider>

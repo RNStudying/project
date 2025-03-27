@@ -1,19 +1,19 @@
 import {FeedInfo} from '../@types/FeedInfo';
 import {UserInfo} from '../@types/UserInfo';
 import {
-  GET_MY_FEED_SUCCESS,
+  // GET_MY_FEED_SUCCESS,
   SET_USER_INFO,
   TypeUserInfoActions,
 } from '../actions/user';
 
 export type TypeUserInfoReducer = {
   userInfo: UserInfo | null;
-  myFeedList: FeedInfo[];
+  // myFeedList: FeedInfo[];
 };
 
 const defaultUserInfoReducer = {
   userInfo: null,
-  myFeedList: [],
+  // myFeedList: [],
 };
 
 export const userInfoReducer = (
@@ -27,12 +27,12 @@ export const userInfoReducer = (
         userInfo: action.user,
       };
     }
-    case GET_MY_FEED_SUCCESS: {
-      return {
-        ...state,
-        myFeedList: action.list,
-      };
-    }
+    // case GET_MY_FEED_SUCCESS: {
+    //   return {
+    //     ...state,
+    //     myFeedList: action.list,
+    //   };
+    // }
   }
   return {
     ...state,

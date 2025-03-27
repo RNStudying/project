@@ -6,12 +6,12 @@ import {thunk} from 'redux-thunk';
 
 const rootReducer = combineReducers({
   userInfo: userInfoReducer,
-  feedList: feedListReducer,
+  // feedList: feedListReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 export type RootReducer = {
   userInfo: TypeUserInfoReducer;
-  feedList: TypeFeedListReducer;
+  // feedList: TypeFeedListReducer;
 };

@@ -1,7 +1,7 @@
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
-import {sleep} from '../utils/sleep';
+// import {sleep} from '../utils/sleep';
 import {RootReducer} from '../store';
-import {FeedInfo} from '../@types/FeedInfo';
+// import {FeedInfo} from '../@types/FeedInfo';
 import {UserInfo} from '../@types/UserInfo';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
@@ -20,44 +20,32 @@ export const setUserInfo = (user: UserInfo) => {
   };
 };
 
-export const getMyFeedRequst = () => {
-  return {
-    type: GET_MY_FEED_REQUEST,
-  };
-};
-export const getMyFeedSuccess = (list: FeedInfo[]) => {
-  return {
-    type: GET_MY_FEED_SUCCESS,
-    list,
-  };
-};
-export const getMyFeedFailure = () => {
-  return {
-    type: GET_MY_FEED_FAILURE,
-  };
-};
+// export const getMyFeedRequst = () => {
+//   return {
+//     type: GET_MY_FEED_REQUEST,
+//   };
+// };
+// export const getMyFeedSuccess = (list: FeedInfo[]) => {
+//   return {
+//     type: GET_MY_FEED_SUCCESS,
+//     list,
+//   };
+// };
+// export const getMyFeedFailure = () => {
+//   return {
+//     type: GET_MY_FEED_FAILURE,
+//   };
+// };
 
 export const signIn =
   (idToken: string): TypeUserThunkAction =>
   async dispatch => {
-    console.log('??');
-    // await sleep(1000);
-    dispatch(
-      setUserInfo({
-        uid: 'TEST_INFO',
-        name: 'TEST_NAME',
-        profileImage: 'TEST_IMAGE',
-      }),
-    );
     const googleSigninCredential = auth.GoogleAuthProvider.credential(idToken);
     const signinResult = await auth().signInWithCredential(
       googleSigninCredential,
     );
-
-    const userDB = await database().ref(`/users/${signinResult.user.uid}`);
-
+    const userDB = database().ref(`/users/${signinResult.user.uid}`);
     const user = await userDB.once('value').then(snapshot => snapshot.val());
-    console.log('user!!!', user);
     const now = new Date().getTime();
     if (user === null) {
       await userDB.set({
@@ -82,28 +70,33 @@ export const signIn =
     );
   };
 
-export const getMyFeedList =
-  (): TypeUserThunkAction => async (dispatch, getState) => {
-    dispatch(getMyFeedRequst());
+export const getUserInfo = async (uid: string) => {
+  const userDB = database().ref(`/users/${uid}`);
+  const userSnapshot = await userDB.once('value');
+  return userSnapshot.val();
+};
+// export const getMyFeedList =
+//   (): TypeUserThunkAction => async (dispatch, getState) => {
+//     dispatch(getMyFeedRequst());
 
-    await sleep(500);
-    const lastFeedList = await database()
-      .ref('/feed')
-      .once('value')
-      .then(snapshot => snapshot.val());
+//     await sleep(500);
+//     const lastFeedList = await database()
+//       .ref('/feed')
+//       .once('value')
+//       .then(snapshot => snapshot.val());
 
-    const result = Object.keys(lastFeedList)
-      .map(key => {
-        return {
-          ...lastFeedList[key],
-          id: key,
-          likeHistory: lastFeedList[key].likeHistory ?? [],
-        };
-      })
-      .filter(item => item.writer.uid === getState().userInfo.userInfo?.uid);
+//     const result = Object.keys(lastFeedList)
+//       .map(key => {
+//         return {
+//           ...lastFeedList[key],
+//           id: key,
+//           likeHistory: lastFeedList[key].likeHistory ?? [],
+//         };
+//       })
+//       .filter(item => item.writer.uid === getState().userInfo.userInfo?.uid);
 
-    dispatch(getMyFeedSuccess(result));
-  };
+//     dispatch(getMyFeedSuccess(result));
+//   };
 
 export type TypeUserDispatch = ThunkDispatch<
   RootReducer,
@@ -118,8 +111,7 @@ export type TypeUserThunkAction = ThunkAction<
   TypeUserInfoActions
 >;
 
-export type TypeUserInfoActions =
-  | ReturnType<typeof setUserInfo>
-  | ReturnType<typeof getMyFeedRequst>
-  | ReturnType<typeof getMyFeedSuccess>
-  | ReturnType<typeof getMyFeedFailure>;
+export type TypeUserInfoActions = ReturnType<typeof setUserInfo>;
+// | ReturnType<typeof getMyFeedRequst>
+// | ReturnType<typeof getMyFeedSuccess>
+// | ReturnType<typeof getMyFeedFailure>;
