@@ -12,7 +12,6 @@ const CommunityScreen = () => {
         title="반갑습니다! CommunityScreen🎉"
         onPressLeft={() => rootNavigation.goBack()}
       />
-      <Text></Text>
     </>
   );
 };

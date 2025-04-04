@@ -19,20 +19,17 @@ const Header = ({
       style={{
         flexDirection: 'row',
         alignItems: 'center',
-        borderWidth: 1,
         padding: leftIcon ? 0 : 10,
       }}>
       {leftIcon && (
         <>
-          <Pressable
-            onPress={onPressLeft}
-            style={{borderWidth: 1, padding: 10}}>
+          <Pressable onPress={onPressLeft} style={{padding: 10}}>
             <FontAwesomeIcon icon={faChevronLeft} size={20} />
           </Pressable>
           <Spacer horizontal margin={10} />
         </>
       )}
-      <View style={{borderWidth: 1}}>
+      <View style={{}}>
         <Text>{title}</Text>
       </View>
     </View>
