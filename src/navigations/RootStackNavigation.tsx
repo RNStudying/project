@@ -10,6 +10,7 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {FeedInfo} from '../@types/FeedInfo';
 import CommunityScreen from '../screens/CommunityScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
+import {AddFeedScreen} from '../screens/AddFeedScreen';
 
 export type RootStackParamList = {
   BottomTab: undefined;
@@ -33,8 +34,7 @@ export const RootStackNavigation: React.FC = () => {
       <Stack.Screen name="BottomTab" component={BottomTabNavigation} />
       <Stack.Screen name="Community" component={CommunityScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-
-      {/* <Stack.Screen name="AddFeed" component={AddFeedScreen} /> */}
+      <Stack.Screen name="AddFeed" component={AddFeedScreen} />
       {/* <Stack.Screen name="FeedList" component={FeedListScreen} /> */}
     </Stack.Navigator>
   );

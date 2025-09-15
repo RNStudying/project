@@ -2,24 +2,33 @@ import {
   GoogleSignin,
   GoogleSigninButton,
 } from '@react-native-google-signin/google-signin';
-import React, {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Text} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {TypeUserDispatch, signIn} from './actions/user';
 import {Spacer} from './components/Spacer';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export const SplashView: React.FC<{onFinishLoad: () => void}> = props => {
   const [showLoginButton, setShowLoginButton] = useState(false);
   const dispatch = useDispatch<TypeUserDispatch>();
-
-  const appInit = async () => {
-    const {idToken} = await GoogleSignin.signInSilently();
-    if (idToken !== null) {
-      await dispatch(signIn(idToken));
+  console.log('showLoginButton', showLoginButton);
+  const appInit = useCallback(async () => {
+    console.log('appInit');
+    try {
+      const {idToken} = await GoogleSignin.signInSilently();
+      if (idToken) {
+        await dispatch(signIn(idToken));
+      } else {
+        console.log('No idToken received');
+      }
       props.onFinishLoad();
+    } catch (error) {
+      console.log('error', error);
+    } finally {
+      setShowLoginButton(true);
     }
-    setShowLoginButton(true);
-  };
+  }, [dispatch, props]);
 
   const onPressSignin = async () => {
     // Google Play 서비스 확인
@@ -36,11 +45,14 @@ export const SplashView: React.FC<{onFinishLoad: () => void}> = props => {
     }
   };
   useEffect(() => {
+    console.log('useEffect');
     appInit();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <SafeAreaView
+      style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text style={{fontSize: 20, fontWeight: 'bold'}}>
         MyApp: All My Favorite 🎁
       </Text>
@@ -50,6 +62,6 @@ export const SplashView: React.FC<{onFinishLoad: () => void}> = props => {
       <Text>소셜 계정 연동을 통해 쉽게 사용해보세요!</Text>
       <Spacer margin={50} />
       {showLoginButton && <GoogleSigninButton onPress={onPressSignin} />}
-    </View>
+    </SafeAreaView>
   );
 };

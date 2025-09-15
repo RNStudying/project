@@ -1,4 +1,3 @@
-import {Text} from 'react-native';
 import Header from '../components/Header';
 import {useRootNavigation} from '../navigations/RootStackNavigation';
 

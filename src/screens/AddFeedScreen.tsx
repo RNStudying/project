@@ -11,12 +11,12 @@ import {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import ImagePicker from 'react-native-image-crop-picker';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faClose, faPlus} from '@fortawesome/free-solid-svg-icons';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
 
-import {Header} from '../components/Header/Header';
 import {useRootNavigation} from '../navigations/RootStackNavigation';
 import {useDispatch} from 'react-redux';
 import {TypeFeedListDispatch, createFeed} from '../actions/feed';
+import Header from '../components/Header';
 
 export const AddFeedScreen: React.FC = () => {
   const rootNavigation = useRootNavigation();
@@ -26,7 +26,7 @@ export const AddFeedScreen: React.FC = () => {
   const [inputMessage, setInputMessage] = useState<string>('');
   const onPressBack = useCallback(() => {
     rootNavigation.goBack();
-  }, []);
+  }, [rootNavigation]);
 
   const canSave = useMemo(() => {
     if (selectedPhoto === null) return false;
@@ -56,16 +56,11 @@ export const AddFeedScreen: React.FC = () => {
     );
 
     rootNavigation.goBack();
-  }, [canSave, selectedPhoto, inputMessage]);
+  }, [canSave, selectedPhoto, inputMessage, dispatch, rootNavigation]);
 
   return (
     <View style={{flex: 1}}>
-      <Header>
-        <Header.Title title="ADD FEED"></Header.Title>
-        <Pressable onPress={onPressBack}>
-          <FontAwesomeIcon icon={faClose} size={24} />
-        </Pressable>
-      </Header>
+      <Header title="ADD FEED" leftIcon={true} onPressLeft={onPressBack} />
 
       <View
         style={{

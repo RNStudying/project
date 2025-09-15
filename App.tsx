@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {RootApp} from './src/RootApp';
 import {Provider} from 'react-redux';
 import {store} from './src/store';
@@ -9,7 +9,10 @@ import mobileAds, {
   BannerAd,
   BannerAdSize,
 } from 'react-native-google-mobile-ads';
-import {Platform, SafeAreaView, useWindowDimensions} from 'react-native';
+import {
+  // Platform,
+  useWindowDimensions,
+} from 'react-native';
 const googleSigninConfigure = () => {
   GoogleSignin.configure({
     webClientId:
@@ -33,6 +36,7 @@ mobileAds()
 
 function App(): React.JSX.Element {
   useEffect(() => {
+    console.log('App useEffect');
     googleSigninConfigure();
   }, []);
   const {width} = useWindowDimensions();
@@ -41,6 +45,7 @@ function App(): React.JSX.Element {
       <Provider store={store}>
         <RootApp />
         <SafeAreaView
+          edges={['bottom']}
           style={{
             alignItems: 'center',
             width: width,

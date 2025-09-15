@@ -30,7 +30,7 @@ const Header = ({
         </>
       )}
       <View style={{}}>
-        <Text>{title}</Text>
+        <Text style={{fontSize: 20, fontWeight: 'bold'}}>{title}</Text>
       </View>
     </View>
   );

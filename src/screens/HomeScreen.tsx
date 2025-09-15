@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
-  PermissionsAndroid,
+  // PermissionsAndroid,
   Pressable,
   ScrollView,
   Text,
@@ -20,7 +20,12 @@ import {useFocusEffect} from '@react-navigation/native';
 import dayjs from 'dayjs';
 import Geolocation from 'react-native-geolocation-service';
 
+import {useRootNavigation} from '../RootStackNavigation';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
+
 export const HomeScreen: React.FC = () => {
+  const navigation = useRootNavigation();
   // const feedList = useTotalFeedList();
   // const dispatch = useDispatch<TypeFeedListDispatch>();
   // const rootNavigation = useRootNavigation();
@@ -35,8 +40,8 @@ export const HomeScreen: React.FC = () => {
   );
   const currentTime = dayjs().format('HHmm');
   const closestBaseTime = useRef<string | null>(null);
-  const setToday = useRef<string | null>(null);
-
+  // const setToday = useRef<string | null>(null);
+  console.log('closestBaseTime', closestBaseTime.current);
   const timeCheck = useCallback(() => {
     for (let i = 0; i < baseTime.length; i++) {
       if (currentTime <= baseTime[i]) {
@@ -125,13 +130,19 @@ export const HomeScreen: React.FC = () => {
   );
   useEffect(() => {
     latitudeCheck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <Header title="반갑습니다! 🎉" />
       <ScrollView
         bounces={false}
-        style={{flex: 1, backgroundColor: '#FFF', paddingHorizontal: 10}}>
+        contentContainerStyle={{
+          flexGrow: 1,
+          backgroundColor: '#fff',
+          paddingHorizontal: 10,
+          paddingBottom: 50,
+        }}>
         <Pressable
           onPress={() => {
             console.log('상세 날씨로 이동');
@@ -150,36 +161,47 @@ export const HomeScreen: React.FC = () => {
         <View
           style={{
             backgroundColor: '#50C3CD',
-            minHeight: 100,
-            paddingHorizontal: 20,
           }}>
-          <Pressable
-            onPress={() => {
-              console.log('리스트 누름');
-            }}
-            style={{
-              borderWidth: 1,
-              height: 40,
-              justifyContent: 'center',
-            }}>
-            <Text>오늘 리스트</Text>
-          </Pressable>
+          <Text>오늘 리스트</Text>
+          <Spacer margin={10} />
+          {[...Array(10)].map((_, index) => {
+            return (
+              <View key={index} style={{paddingHorizontal: 20}}>
+                <Pressable
+                  onPress={() => {
+                    console.log('리스트 누름');
+                  }}
+                  style={{
+                    borderWidth: 1,
+                    justifyContent: 'center',
+                    backgroundColor: '#fff',
+                    height: 30,
+                  }}>
+                  <Text>{index}</Text>
+                </Pressable>
+                {index !== 9 && <Spacer margin={10} />}
+              </View>
+            );
+          })}
         </View>
       </ScrollView>
       <Pressable
         onPress={() => {
           console.log('작성하러가기! 모달');
+          navigation.navigate('AddFeed');
         }}
         style={{
-          backgroundColor: 'red',
+          backgroundColor: 'lightgray',
           borderRadius: 99,
           width: 70,
           height: 70,
           position: 'absolute',
           bottom: 0,
           right: 0,
+          justifyContent: 'center',
+          alignItems: 'center',
         }}>
-        <Text>+ 작성하기 버튼 (메모 또는 일기)</Text>
+        <FontAwesomeIcon icon={faPlus} size={24} color="white" />
       </Pressable>
     </View>
   );
